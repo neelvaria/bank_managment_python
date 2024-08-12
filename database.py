@@ -10,12 +10,13 @@ def db_query(str):
 
 def create_customer():
     cursor.execute("""CREATE TABLE IF NOT EXISTS Customer
-               (username varchar(50),
-               password varchar(25),
-               name varchar(50),
-               age INTEGER,
-               city varchar(50),
-               acc_number INTEGER,
+               (username varchar(50) NOT NULL,
+               password varchar(25) NOT NULL,
+               name varchar(50) NOT NULL,
+               age INTEGER NOT NULL,
+               city varchar(50) NOT NULL,
+               acc_number INTEGER NOT NULL,
+               balance INTEGER NOT NULL,
                status BOOLEAN)
             """)
 

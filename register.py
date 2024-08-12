@@ -2,6 +2,7 @@
 from database import *
 import random
 from customer import *
+from bank import Bank
 
 def signup():
     username = input("Create username: ")
@@ -21,7 +22,29 @@ def signup():
             if temp:
                 continue
             else:
-                print("Account number generated: ",acc_number)
+                print("Your Account number will be: ",acc_number)
                 break
     obj = customer(username,password,name,age,city,acc_number)
-    obj.create_user() 
+    obj.create_user()
+    bobj = Bank(username,acc_number)
+    bobj.createtransaction_table()
+    
+def signin():
+    username = input("Enter username: ")
+    temp = db_query(f"SELECT username FROM customer WHERE username='{username}';")
+    if temp:
+        while True:
+            password = input(f"Welcome {username.capitalize()}, Enter password: ")
+            temp = db_query(f"SELECT password FROM customer WHERE username='{username}';")
+            #print(temp[0][0])
+            if temp[0][0] == password:
+                print("Login successful")
+                return username
+            else:
+                print("Incorrect password")
+                continue
+
+    else:
+        print("Username not found")
+        signin()
+    
